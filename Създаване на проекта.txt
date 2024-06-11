@@ -1,0 +1,15 @@
+Създаване на проекта и инсталиране на нужните пакети.
+
+mkdir my-api
+cd my-api
+npm init -y
+
+
+npm install express mongoose
+npm install nodemon --save-dev
+
+
+"scripts": {
+    "start": "nodemon index.js"
+}
+

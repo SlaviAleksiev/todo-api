@@ -1,0 +1,53 @@
+Създаване на контролер Publisher:
+
+
+const Publisher = require('../models/publisher');
+
+exports.getAllPublishers = async (req, res) => {
+    try {
+        const publishers = await Publisher.find();
+        res.json(publishers);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};
+
+exports.getPublisherById = async (req, res) => {
+    try {
+        const publisher = await Publisher.findById(req.params.id);
+        if (!publisher) return res.status(404).send('Publisher not found');
+        res.json(publisher);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};
+
+exports.createPublisher = async (req, res) => {
+    try {
+        const publisher = new Publisher(req.body);
+        await publisher.save();
+        res.status(201).json(publisher);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+exports.updatePublisher = async (req, res) => {
+    try {
+        const publisher = await Publisher.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!publisher) return res.status(404).send('Publisher not found');
+        res.json(publisher);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+exports.deletePublisher = async (req, res) => {
+    try {
+        const publisher = await Publisher.findByIdAndDelete(req.params.id);
+        if (!publisher) return res.status(404).send('Publisher not found');
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};

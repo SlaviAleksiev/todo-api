@@ -1,0 +1,13 @@
+Колекция: Book
+
+
+const mongoose = require('mongoose');
+
+const bookSchema = new mongoose.Schema({
+    title: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author' },
+    publisher: { type: mongoose.Schema.Types.ObjectId, ref: 'Publisher' },
+    year: Number
+});
+
+module.exports = mongoose.model('Book', bookSchema);

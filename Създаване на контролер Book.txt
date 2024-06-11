@@ -1,0 +1,53 @@
+Създаване на контролер Book:
+
+
+const Book = require('../models/book');
+
+exports.getAllBooks = async (req, res) => {
+    try {
+        const books = await Book.find().populate('author publisher');
+        res.json(books);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};
+
+exports.getBookById = async (req, res) => {
+    try {
+        const book = await Book.findById(req.params.id).populate('author publisher');
+        if (!book) return res.status(404).send('Book not found');
+        res.json(book);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};
+
+exports.createBook = async (req, res) => {
+    try {
+        const book = new Book(req.body);
+        await book.save();
+        res.status(201).json(book);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+exports.updateBook = async (req, res) => {
+    try {
+        const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!book) return res.status(404).send('Book not found');
+        res.json(book);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+exports.deleteBook = async (req, res) => {
+    try {
+        const book = await Book.findByIdAndDelete(req.params.id);
+        if (!book) return res.status(404).send('Book not found');
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).send(err);
+    }
+};

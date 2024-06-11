@@ -1,0 +1,37 @@
+Настройка на Express приложението index.js :
+
+
+const express = require('express');
+const mongoose = require('mongoose');
+const bookRoutes = require('./routes/bookRoutes');
+const authorRoutes = require('./routes/authorRoutes');
+const publisherRoutes = require('./routes/publisherRoutes');
+
+const app = express();
+const port = 3000;
+
+// Middleware to parse JSON
+app.use(express.json());
+
+// Database connection
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.error('Failed to connect to MongoDB', err);
+});
+
+// Routes
+app.use('/books', bookRoutes);
+app.use('/authors', authorRoutes);
+app.use('/publishers', publisherRoutes);
+
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
+
+
+

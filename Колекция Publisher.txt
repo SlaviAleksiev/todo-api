@@ -1,0 +1,12 @@
+Колекция: Publisher
+
+
+const mongoose = require('mongoose');
+
+const publisherSchema = new mongoose.Schema({
+    name: String,
+    address: String,
+    founded: Number
+});
+
+module.exports = mongoose.model('Publisher', publisherSchema);

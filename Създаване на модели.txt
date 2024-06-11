@@ -1,0 +1,18 @@
+Създаване на модели
+
+my-api
+├── controllers
+│   ├── bookController.js
+│   ├── authorController.js
+│   └── publisherController.js
+├── models
+│   ├── book.js
+│   ├── author.js
+│   └── publisher.js
+├── routes
+│   ├── bookRoutes.js
+│   ├── authorRoutes.js
+│   └── publisherRoutes.js
+├── index.js
+└── config
+    └── database.js
